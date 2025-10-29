@@ -9,36 +9,8 @@ export type Member = {
   name: string;
   position: string;
   profile: string;
-  image: MicroCMSImage & MicroCMSListContent;
-};
-
-export const getMembersList = async (queries?: MicroCMSQueries) => {
-  const listData = await client.getList<Member>({
-    endpoint: "members",
-    queries,
-  });
-  return listData;
-};
-
-export const getNewsList = async (queries?: MicroCMSQueries) => {
-  const listData = await client.getList<News>({
-    endpoint: "news",
-    queries,
-  });
-  return listData;
-};
-
-export const getNewsDatail = async (
-  contentId: string,
-  queries?: MicroCMSQueries
-) => {
-  const detailData = await client.getListDetail<News>({
-    endpoint: "news",
-    contentId,
-    queries,
-  });
-  return detailData;
-};
+  image: MicroCMSImage;
+} & MicroCMSListContent;
 
 export type Category = {
   name: string;
@@ -64,3 +36,45 @@ const client = createClient({
   serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
   apiKey: process.env.MICROCMS_API_KEY,
 });
+
+export const getMembersList = async (queries?: MicroCMSQueries) => {
+  const listData = await client.getList<Member>({
+    endpoint: "members",
+    queries,
+  });
+  return listData;
+};
+
+export const getNewsList = async (queries?: MicroCMSQueries) => {
+  const listData = await client.getList<News>({
+    endpoint: "news",
+    queries,
+  });
+  return listData;
+};
+
+export const getNewsDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const detailData = await client.getListDetail<News>({
+    endpoint: "news",
+    contentId,
+    queries,
+  });
+
+  return detailData;
+};
+
+export const getCategoryDetail = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const detailData = await client.getListDetail<Category>({
+    endpoint: "categories",
+    contentId,
+    queries,
+  });
+
+  return detailData;
+};
